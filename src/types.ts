@@ -15,7 +15,7 @@ export interface Sample {
 
 export interface Technician {
   id: string;
-  name: string;
+  name?: string;
   speciality: TechnicianSpeciality;
   startTime: string;
   endTime: string;
@@ -23,7 +23,7 @@ export interface Technician {
 
 export interface Equipment {
   id: string;
-  name: string;
+  name?: string;
   type: SampleType;
   available: boolean;
 }
