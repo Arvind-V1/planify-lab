@@ -1,0 +1,27 @@
+import { LabData } from '../../src/types';
+
+export const REALISTIC_DAY: LabData = {
+  samples: [
+    { id: 'S001', type: 'BLOOD', priority: 'ROUTINE', analysisTime: 45, arrivalTime: '08:30', patientId: 'P001' },
+    { id: 'S002', type: 'BLOOD', priority: 'URGENT', analysisTime: 30, arrivalTime: '09:00', patientId: 'P002' },
+    { id: 'S003', type: 'URINE', priority: 'ROUTINE', analysisTime: 20, arrivalTime: '08:45', patientId: 'P003' },
+    { id: 'S004', type: 'TISSUE', priority: 'URGENT', analysisTime: 60, arrivalTime: '09:15', patientId: 'P004' },
+    { id: 'S005', type: 'BLOOD', priority: 'STAT', analysisTime: 25, arrivalTime: '09:30', patientId: 'P005' },
+    { id: 'S006', type: 'URINE', priority: 'STAT', analysisTime: 15, arrivalTime: '10:00', patientId: 'P006' },
+    { id: 'S007', type: 'BLOOD', priority: 'ROUTINE', analysisTime: 40, arrivalTime: '10:15', patientId: 'P007' },
+    { id: 'S008', type: 'TISSUE', priority: 'ROUTINE', analysisTime: 50, arrivalTime: '11:00', patientId: 'P008' },
+    { id: 'S009', type: 'URINE', priority: 'URGENT', analysisTime: 30, arrivalTime: '11:30', patientId: 'P009' },
+    { id: 'S010', type: 'BLOOD', priority: 'ROUTINE', analysisTime: 35, arrivalTime: '14:00', patientId: 'P010' },
+  ],
+  technicians: [
+    { id: 'T001', name: 'Alice Martin', speciality: 'BLOOD', startTime: '08:00', endTime: '17:00' },
+    { id: 'T002', name: 'Bob Durand', speciality: 'URINE', startTime: '08:00', endTime: '17:00' },
+    { id: 'T003', name: 'Chloé Petit', speciality: 'TISSUE', startTime: '10:00', endTime: '16:00' },
+    { id: 'T004', name: 'David Roche', speciality: 'GENERAL', startTime: '08:00', endTime: '16:00' },
+  ],
+  equipment: [
+    { id: 'E001', name: 'Analyseur Sang', type: 'BLOOD', available: true },
+    { id: 'E002', name: 'Analyseur Urine', type: 'URINE', available: true },
+    { id: 'E003', name: 'Microscope Tissu', type: 'TISSUE', available: true },
+  ],
+};
