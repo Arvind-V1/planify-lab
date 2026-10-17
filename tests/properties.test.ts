@@ -79,11 +79,11 @@ function findInvariantFailures(seed: number): string[] {
   }
   for (let index = 1; index < plan.schedule.length; index++) {
     if (plan.schedule[index].startTime < plan.schedule[index - 1].startTime) {
-      failures.push('le planning n\'est pas chronologique');
+      failures.push("le planning n'est pas chronologique");
     }
   }
   if (plan.metrics.conflicts !== result.unscheduled.length) {
-    failures.push('conflicts devrait égaler le nombre d\'échantillons non planifiés');
+    failures.push("conflicts devrait égaler le nombre d'échantillons non planifiés");
   }
   if (!Number.isFinite(plan.metrics.efficiency) || plan.metrics.efficiency < 0) {
     failures.push(`efficacité invalide : ${plan.metrics.efficiency}`);

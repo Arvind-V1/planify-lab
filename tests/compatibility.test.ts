@@ -30,7 +30,9 @@ describe('isEquipmentCompatible', () => {
     ['BLOOD', 'URINE', false],
     ['TISSUE', 'TISSUE', true],
   ])('équipement %s et échantillon %s : %p', (equipmentType, sampleType, expected) => {
-    expect(isEquipmentCompatible(buildEquipment({ type: equipmentType }), buildSample({ type: sampleType }))).toBe(expected);
+    expect(
+      isEquipmentCompatible(buildEquipment({ type: equipmentType }), buildSample({ type: sampleType })),
+    ).toBe(expected);
   });
 });
 
@@ -41,7 +43,7 @@ describe('findCompatibleTechnicians', () => {
     buildTechnician({ id: 'T3', speciality: 'GENERAL' }),
   ];
 
-  it('retourne les spécialistes du type et les GENERAL, dans l\'ordre d\'origine', () => {
+  it("retourne les spécialistes du type et les GENERAL, dans l'ordre d'origine", () => {
     const found = findCompatibleTechnicians(buildSample({ type: 'BLOOD' }), technicians);
 
     expect(found.map((technician) => technician.id)).toEqual(['T2', 'T3']);

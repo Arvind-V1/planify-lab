@@ -7,12 +7,12 @@ function rulesOf(assignments: Assignment[]): ViolationRule[] {
   return findScheduleViolations(assignments).map((violation) => violation.rule);
 }
 
-describe('findScheduleViolations : plannings produits par l\'algorithme', () => {
+describe("findScheduleViolations : plannings produits par l'algorithme", () => {
   it.each([
     ['exemple 1', EXAMPLE_1],
     ['exemple 2', EXAMPLE_2],
     ['exemple 3', EXAMPLE_3],
-  ])('ne détecte rien sur l\'%s', (_name, example) => {
+  ])("ne détecte rien sur l'%s", (_name, example) => {
     expect(findScheduleViolations(planSamples(example.input).assignments)).toEqual([]);
   });
 
@@ -21,7 +21,13 @@ describe('findScheduleViolations : plannings produits par l\'algorithme', () => 
       samples: [
         buildSample({ id: 'S1', type: 'BLOOD', priority: 'STAT', arrivalTime: '09:00', analysisTime: 45 }),
         buildSample({ id: 'S2', type: 'URINE', priority: 'URGENT', arrivalTime: '09:10', analysisTime: 30 }),
-        buildSample({ id: 'S3', type: 'TISSUE', priority: 'ROUTINE', arrivalTime: '08:30', analysisTime: 60 }),
+        buildSample({
+          id: 'S3',
+          type: 'TISSUE',
+          priority: 'ROUTINE',
+          arrivalTime: '08:30',
+          analysisTime: 60,
+        }),
         buildSample({ id: 'S4', type: 'URINE', priority: 'STAT', arrivalTime: '09:20', analysisTime: 20 }),
         buildSample({ id: 'S5', type: 'BLOOD', priority: 'ROUTINE', arrivalTime: '08:00', analysisTime: 30 }),
         buildSample({ id: 'S6', type: 'BLOOD', priority: 'URGENT', arrivalTime: '10:00', analysisTime: 40 }),
@@ -81,7 +87,11 @@ describe('findScheduleViolations : chevauchements', () => {
   const first = { sample: buildSample({ id: 'S1' }), start: 540, end: 600 };
 
   it('détecte deux analyses simultanées sur le même technicien', () => {
-    const a = buildAssignment({ ...first, technician: buildTechnician({ id: 'T1' }), equipment: buildEquipment({ id: 'E1' }) });
+    const a = buildAssignment({
+      ...first,
+      technician: buildTechnician({ id: 'T1' }),
+      equipment: buildEquipment({ id: 'E1' }),
+    });
     const b = buildAssignment({
       sample: buildSample({ id: 'S2' }),
       technician: buildTechnician({ id: 'T1' }),
@@ -94,7 +104,11 @@ describe('findScheduleViolations : chevauchements', () => {
   });
 
   it('détecte deux analyses simultanées sur le même équipement', () => {
-    const a = buildAssignment({ ...first, technician: buildTechnician({ id: 'T1' }), equipment: buildEquipment({ id: 'E1' }) });
+    const a = buildAssignment({
+      ...first,
+      technician: buildTechnician({ id: 'T1' }),
+      equipment: buildEquipment({ id: 'E1' }),
+    });
     const b = buildAssignment({
       sample: buildSample({ id: 'S2' }),
       technician: buildTechnician({ id: 'T2' }),
@@ -114,7 +128,11 @@ describe('findScheduleViolations : chevauchements', () => {
   });
 
   it('accepte deux analyses simultanées sur des ressources différentes', () => {
-    const a = buildAssignment({ ...first, technician: buildTechnician({ id: 'T1' }), equipment: buildEquipment({ id: 'E1' }) });
+    const a = buildAssignment({
+      ...first,
+      technician: buildTechnician({ id: 'T1' }),
+      equipment: buildEquipment({ id: 'E1' }),
+    });
     const b = buildAssignment({
       sample: buildSample({ id: 'S2' }),
       technician: buildTechnician({ id: 'T2' }),
@@ -152,8 +170,16 @@ describe('findScheduleViolations : priorités', () => {
   });
 
   it('ne compare pas deux échantillons de même priorité', () => {
-    const early = buildAssignment({ sample: buildSample({ id: 'A', priority: 'URGENT' }), start: 540, end: 570 });
-    const late = buildAssignment({ sample: buildSample({ id: 'B', priority: 'URGENT' }), start: 600, end: 630 });
+    const early = buildAssignment({
+      sample: buildSample({ id: 'A', priority: 'URGENT' }),
+      start: 540,
+      end: 570,
+    });
+    const late = buildAssignment({
+      sample: buildSample({ id: 'B', priority: 'URGENT' }),
+      start: 600,
+      end: 630,
+    });
 
     expect(rulesOf([early, late])).toEqual([]);
   });

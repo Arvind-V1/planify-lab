@@ -20,7 +20,7 @@ describe('ResourceAvailability', () => {
     expect(buildAvailability().getEquipmentFreeAt('E1')).toBe(0);
   });
 
-  it('bloque le technicien et l\'équipement jusqu\'à la fin de la réservation', () => {
+  it("bloque le technicien et l'équipement jusqu'à la fin de la réservation", () => {
     const availability = buildAvailability();
 
     availability.reserve('T1', 'E1', 600);

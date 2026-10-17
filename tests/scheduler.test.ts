@@ -17,12 +17,16 @@ describe('planSamples : exemples du sujet', () => {
 
 describe('planSamples : cas particuliers', () => {
   it('retourne un résultat vide sans échantillon', () => {
-    const result = planSamples({ samples: [], technicians: [buildTechnician()], equipment: [buildEquipment()] });
+    const result = planSamples({
+      samples: [],
+      technicians: [buildTechnician()],
+      equipment: [buildEquipment()],
+    });
 
     expect(result).toEqual({ assignments: [], unscheduled: [] });
   });
 
-  it('signale un échantillon qu\'aucun équipement ne peut traiter', () => {
+  it("signale un échantillon qu'aucun équipement ne peut traiter", () => {
     const tissue = buildSample({ id: 'S1', type: 'TISSUE' });
 
     const result = planSamples({
@@ -35,7 +39,7 @@ describe('planSamples : cas particuliers', () => {
     expect(result.unscheduled).toEqual([tissue]);
   });
 
-  it('n\'utilise pas un équipement indisponible', () => {
+  it("n'utilise pas un équipement indisponible", () => {
     const result = planSamples({
       samples: [buildSample()],
       technicians: [buildTechnician()],
@@ -57,7 +61,10 @@ describe('planSamples : cas particuliers', () => {
     });
 
     const timeline = result.assignments.map((a) => [a.sample.id, toScheduleEntry(a).startTime]);
-    expect(timeline).toEqual([['S', '16:00'], ['R', '16:30']]);
+    expect(timeline).toEqual([
+      ['S', '16:00'],
+      ['R', '16:30'],
+    ]);
   });
 
   it('ne planifie jamais deux analyses simultanées sur la même ressource', () => {

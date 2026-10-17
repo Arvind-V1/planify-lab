@@ -77,7 +77,7 @@ describe('planifyLab : robustesse', () => {
     expect(planifyLab(EXAMPLE_3.input)).toEqual(planifyLab(EXAMPLE_3.input));
   });
 
-  it('signale en conflit un échantillon qu\'aucune ressource ne peut traiter', () => {
+  it("signale en conflit un échantillon qu'aucune ressource ne peut traiter", () => {
     const plan = planifyLab({
       samples: [buildSample({ id: 'S1', type: 'TISSUE' })],
       technicians: [buildTechnician()],

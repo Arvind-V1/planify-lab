@@ -29,7 +29,7 @@ describe('formatTime', () => {
     expect(() => formatTime(1.5)).toThrow(RangeError);
   });
 
-  it('est l\'inverse de parseTime', () => {
+  it("est l'inverse de parseTime", () => {
     expect(formatTime(parseTime('08:05'))).toBe('08:05');
   });
 });

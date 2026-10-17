@@ -18,7 +18,7 @@ function slotFor(
 }
 
 describe('findEarliestSlot', () => {
-  it('démarre à l\'arrivée quand tout est libre', () => {
+  it("démarre à l'arrivée quand tout est libre", () => {
     const slot = slotFor([buildTechnician()], [buildEquipment()], { arrivalTime: '09:00', analysisTime: 30 });
 
     expect(slot).toMatchObject({ start: 540, end: 570 });
@@ -35,7 +35,7 @@ describe('findEarliestSlot', () => {
     expect(slot?.start).toBe(TEN_AM);
   });
 
-  it('attend que l\'équipement se libère', () => {
+  it("attend que l'équipement se libère", () => {
     const slot = slotFor(
       [buildTechnician({ id: 'T1' }), buildTechnician({ id: 'T2', speciality: 'URINE' })],
       [buildEquipment({ id: 'E1' })],
@@ -61,7 +61,9 @@ describe('findEarliestSlot', () => {
   });
 
   it('ne démarre pas avant le début de service du technicien', () => {
-    const slot = slotFor([buildTechnician({ startTime: '08:00' })], [buildEquipment()], { arrivalTime: '07:00' });
+    const slot = slotFor([buildTechnician({ startTime: '08:00' })], [buildEquipment()], {
+      arrivalTime: '07:00',
+    });
 
     expect(slot?.start).toBe(parseTime('08:00'));
   });
@@ -92,7 +94,10 @@ describe('findEarliestSlot', () => {
 
   it('préfère le début le plus tôt, même avec un technicien GENERAL', () => {
     const slot = slotFor(
-      [buildTechnician({ id: 'T1', speciality: 'BLOOD' }), buildTechnician({ id: 'T2', speciality: 'GENERAL' })],
+      [
+        buildTechnician({ id: 'T1', speciality: 'BLOOD' }),
+        buildTechnician({ id: 'T2', speciality: 'GENERAL' }),
+      ],
       [buildEquipment({ id: 'E1' }), buildEquipment({ id: 'E2', type: 'URINE' })],
       { arrivalTime: '09:00' },
       (availability) => availability.reserve('T1', 'E2', TEN_AM),
@@ -103,14 +108,17 @@ describe('findEarliestSlot', () => {
 
   it('préfère le spécialiste au GENERAL à début égal', () => {
     const slot = slotFor(
-      [buildTechnician({ id: 'T2', speciality: 'GENERAL' }), buildTechnician({ id: 'T1', speciality: 'BLOOD' })],
+      [
+        buildTechnician({ id: 'T2', speciality: 'GENERAL' }),
+        buildTechnician({ id: 'T1', speciality: 'BLOOD' }),
+      ],
       [buildEquipment()],
     );
 
     expect(slot?.technician.id).toBe('T1');
   });
 
-  it('garde l\'ordre des listes à égalité parfaite', () => {
+  it("garde l'ordre des listes à égalité parfaite", () => {
     const slot = slotFor(
       [buildTechnician({ id: 'T1' }), buildTechnician({ id: 'T2' })],
       [buildEquipment({ id: 'E1' }), buildEquipment({ id: 'E2' })],

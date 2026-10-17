@@ -51,7 +51,7 @@ describe('journée réaliste : 10 échantillons, 4 techniciens, 3 équipements',
     expect(entryOf('S006').startTime).toBe('10:00');
   });
 
-  it('confie un TISSUE au technicien GENERAL tant que le spécialiste n\'a pas pris son service', () => {
+  it("confie un TISSUE au technicien GENERAL tant que le spécialiste n'a pas pris son service", () => {
     expect(entryOf('S004').technicianId).toBe('T004');
     expect(entryOf('S004').startTime).toBe('09:15');
   });

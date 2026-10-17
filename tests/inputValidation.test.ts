@@ -17,7 +17,7 @@ describe('findInputProblems : données valides', () => {
     ['exemple 1', EXAMPLE_1],
     ['exemple 2', EXAMPLE_2],
     ['exemple 3', EXAMPLE_3],
-  ])('accepte l\'%s du sujet', (_name, example) => {
+  ])("accepte l'%s du sujet", (_name, example) => {
     expect(findInputProblems(example.input)).toEqual([]);
   });
 
@@ -27,11 +27,13 @@ describe('findInputProblems : données valides', () => {
 });
 
 describe('findInputProblems : structure', () => {
-  it('refuse une collection qui n\'est pas un tableau', () => {
-    expect(findInputProblems(validData({ samples: undefined as never }))).toEqual(['samples must be an array']);
+  it("refuse une collection qui n'est pas un tableau", () => {
+    expect(findInputProblems(validData({ samples: undefined as never }))).toEqual([
+      'samples must be an array',
+    ]);
   });
 
-  it('signale les trois collections quand l\'entrée est absente', () => {
+  it("signale les trois collections quand l'entrée est absente", () => {
     expect(findInputProblems(undefined as never)).toEqual([
       'samples must be an array',
       'technicians must be an array',
@@ -60,7 +62,7 @@ describe('findInputProblems : échantillons', () => {
     expect(findInputProblems(data)[0]).toContain('sample "S1": analysisTime must be a positive integer');
   });
 
-  it('refuse une heure d\'arrivée invalide', () => {
+  it("refuse une heure d'arrivée invalide", () => {
     const data = validData({ samples: [buildSample({ id: 'S1', arrivalTime: '9h00' })] });
 
     expect(findInputProblems(data)).toEqual(['sample "S1": invalid arrivalTime "9h00" (expected HH:MM)']);
@@ -75,7 +77,9 @@ describe('findInputProblems : techniciens', () => {
   });
 
   it('refuse des horaires invalides', () => {
-    const data = validData({ technicians: [buildTechnician({ id: 'T1', startTime: '8h', endTime: '25:00' })] });
+    const data = validData({
+      technicians: [buildTechnician({ id: 'T1', startTime: '8h', endTime: '25:00' })],
+    });
 
     expect(findInputProblems(data)).toEqual([
       'technician "T1": invalid startTime "8h" (expected HH:MM)',
@@ -83,8 +87,10 @@ describe('findInputProblems : techniciens', () => {
     ]);
   });
 
-  it('refuse une fin de service qui n\'est pas après le début', () => {
-    const data = validData({ technicians: [buildTechnician({ id: 'T1', startTime: '17:00', endTime: '08:00' })] });
+  it("refuse une fin de service qui n'est pas après le début", () => {
+    const data = validData({
+      technicians: [buildTechnician({ id: 'T1', startTime: '17:00', endTime: '08:00' })],
+    });
 
     expect(findInputProblems(data)).toEqual(['technician "T1": endTime must be after startTime']);
   });
@@ -97,7 +103,7 @@ describe('findInputProblems : équipements', () => {
     expect(findInputProblems(data)).toEqual(['equipment "E1": unknown type "GENERAL"']);
   });
 
-  it('refuse un indicateur de disponibilité qui n\'est pas un booléen', () => {
+  it("refuse un indicateur de disponibilité qui n'est pas un booléen", () => {
     const data = validData({ equipment: [buildEquipment({ id: 'E1', available: 'yes' as never })] });
 
     expect(findInputProblems(data)).toEqual(['equipment "E1": available must be a boolean']);
@@ -112,7 +118,10 @@ describe('findInputProblems : identifiants', () => {
   });
 
   it('accepte le même identifiant dans deux collections différentes', () => {
-    const data = validData({ technicians: [buildTechnician({ id: 'X' })], equipment: [buildEquipment({ id: 'X' })] });
+    const data = validData({
+      technicians: [buildTechnician({ id: 'X' })],
+      equipment: [buildEquipment({ id: 'X' })],
+    });
 
     expect(findInputProblems(data)).toEqual([]);
   });
