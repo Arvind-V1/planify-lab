@@ -21,3 +21,7 @@ export function formatTime(totalMinutes: number): string {
   const minutes = totalMinutes % MINUTES_PER_HOUR;
   return `${padTwoDigits(hours)}:${padTwoDigits(minutes)}`;
 }
+
+export function isValidTime(value: unknown): value is string {
+  return typeof value === 'string' && TIME_PATTERN.test(value);
+}

@@ -2,7 +2,7 @@ import { PRIORITY_RANK } from './constants';
 import { parseTime } from './time';
 import { Sample } from './types';
 
-function compareText(a: string, b: string): number {
+export function  compareText(a: string, b: string): number {
   if (a < b) {
     return -1;
   }
